@@ -1,11 +1,19 @@
-{"notes": [{
-    "id": "0",
-    "title": "Test Title",
-    "text": "Test text"
-  },
-  {
-    "id": "1",
-    "title": "Test Title1",
-    "text": "Test text1"
-  }
-]}
+{
+  "notes": [
+    {
+      "id": "0",
+      "title": "Test Title",
+      "text": "Test text"
+    },
+    {
+      "id": "1",
+      "title": "Test Title1",
+      "text": "Test text1"
+    },
+    {
+      "id": "2",
+      "title": "finish module 11",
+      "text": "Finish module 11 by the end of sunday"
+    }
+  ]
+}

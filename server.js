@@ -14,7 +14,20 @@ function findById(id, notesArray) {
   return result;
 }
 
+function createNote(body, notesArray) {
+  console.log(body);
+  const note = body;
+  notesArray.push(note);
 
+  fs.writeFileSync(
+    path.join(__dirname, "./develop/db/notes.json"),
+    JSON.stringify({ notes: notesArray }, null, 2)
+  );
+  return note;
+
+
+  
+}
 
 app.get("/api/notes", (req, res) => {
   res.json(notes);
@@ -31,7 +44,13 @@ app.get("/api/notes/:id", (req, res) => {
 
 app.post("/api/notes", (req, res) => {
   console.log(req.body);
-  res.json(req.body);
+  req.body.id = notes.length.toString();
+
+const note = createNote(req.body, notes);
+
+res.json(note);
+
+  
 });
 
 app.listen(3001, () => {
