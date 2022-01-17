@@ -9,6 +9,8 @@ app.use(express.urlencoded({ extended: true }));
 // parse incoming JSON data
 app.use(express.json());
 
+app.use(express.static("develop/public"));
+
 function findById(id, notesArray) {
   const result = notesArray.filter((note) => note.id === id)[0];
   return result;
@@ -41,6 +43,11 @@ app.get("/api/notes/:id", (req, res) => {
     res.sendStatus(404);
   }
 });
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "./develop/public/index.html"));
+});
+
 
 app.post("/api/notes", (req, res) => {
   console.log(req.body);
