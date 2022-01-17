@@ -2,14 +2,14 @@ const fs = require("fs");
 const path = require("path");
 const express = require("express");
 const app = express();
-const {notes} = require("./develop/db/notes.json");
+const {notes} = require("./db/notes.json");
 
 // parse incoming string or array data
 app.use(express.urlencoded({ extended: true }));
 // parse incoming JSON data
 app.use(express.json());
 
-app.use(express.static("develop/public"));
+app.use(express.static("public"));
 
 function findById(id, notesArray) {
   const result = notesArray.filter((note) => note.id === id)[0];
@@ -22,7 +22,7 @@ function createNote(body, notesArray) {
   notesArray.push(note);
 
   fs.writeFileSync(
-    path.join(__dirname, "./develop/db/notes.json"),
+    path.join(__dirname, "./db/notes.json"),
     JSON.stringify({ notes: notesArray }, null, 2)
   );
   return note;
@@ -45,7 +45,7 @@ app.get("/api/notes/:id", (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "./develop/public/index.html"));
+  res.sendFile(path.join(__dirname, "./public/index.html"));
 });
 
 
