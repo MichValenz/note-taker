@@ -25,13 +25,34 @@ const hide = (elem) => {
 // activeNote is used to keep track of the note in the textarea
 let activeNote = {};
 
-const getNotes = () =>
-  fetch("/api/notes", {
+const getNotes = (noteText = {}) => {
+  let savedNotes = "/api/notes";
+
+  Object.entries(noteText).forEach(([key, value]) => {
+    savedNotes += `${key}=${value}&`;
+  });
+
+  console.log(savedNotes);
+  
+  fetch(savedNotes, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
-  });
+  })
+    .then((response) => {
+      // if (!response.ok) {
+      //   return alert("Error: Could not retrieve notes");
+      // }
+      return response.json();
+      
+    })
+    // .then((notesList) => {
+    //   console.log(notesList);
+    //   re
+      
+    // });
+};
 
 const saveNote = (note) =>
   fetch("/api/notes", {
@@ -62,7 +83,7 @@ const deleteNote = (id) =>
   });
 
 const renderActiveNote = () => {
-  hide(saveNoteBtn);
+  
 
   if (activeNote.id) {
     noteTitle.setAttribute("readonly", true);
@@ -119,13 +140,13 @@ const handleNewNoteView = (e) => {
   renderActiveNote();
 };
 
-const handleRenderSaveBtn = () => {
-  if (!noteTitle.value.trim() || !noteText.value.trim()) {
-    hide(saveNoteBtn);
-  } else {
-    show(saveNoteBtn);
-  }
-};
+// const handleRenderSaveBtn = () => {
+//   if (!noteTitle.value.trim() || !noteText.value.trim()) {
+//     hide(saveNoteBtn);
+//   } else {
+//     show(saveNoteBtn);
+//   }
+// };
 
 // Render the list of note titles
 const renderNoteList = async (notes) => {
