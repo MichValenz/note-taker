@@ -75,6 +75,7 @@ const saveNote = (note) =>
     .then((postResponse) => {
       console.log(postResponse);
       alert("Note is saved.");
+      handleNoteSave();
     });
 
 const deleteNote = (id) =>
@@ -206,9 +207,10 @@ const renderNoteList = async (notes) => {
   }
   
 };
-console.log("test", getNotes());
 
 
+// Gets notes from the db and renders them to the sidebar
+const getAndRenderNotes = () => getNotes().then(renderNoteList);
 
 if (window.location.pathname === "/notes") {
   saveNoteBtn.addEventListener("click", handleNoteSave);
@@ -217,4 +219,4 @@ if (window.location.pathname === "/notes") {
   noteText.addEventListener("keyup", handleRenderSaveBtn);
 }
 
-getNotes();
+getAndRenderNotes;
