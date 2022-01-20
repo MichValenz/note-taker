@@ -33,31 +33,29 @@ const getNotes = (noteText = {}) => {
   });
 
   
-  fetch(savedNotes, {
+  return fetch(savedNotes, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
   })
-    // .then((res) => res.json())
-    // .then((data) => console.log("test3", data))
+   
     .then((response) => {
       if (!response.ok) {
         return alert("Error: Could not retrieve notes");
       }
+      
       return response.json();
     })
-    .then((noteslist) => {
-      // console.log("testest", noteslist)
-      renderNoteList(noteslist)
-    }
-      
-    ); 
+    // .then((noteslist) => {
+    //  console.log("testest2", noteslist);
+    //  renderNoteList(noteslist);
 
-    
+    // });
+
 };
 
-const saveNote = (note) =>
+const saveNote = (note = {}) =>
   fetch("/api/notes", {
     method: "POST",
     headers: {
@@ -72,10 +70,10 @@ const saveNote = (note) =>
       }
       alert("Error: " + response.statusText);
     })
-    .then((postResponse) => {
-      console.log(postResponse);
+    .then((saved) => {
+      console.log(saved);
       alert("Note is saved.");
-      handleNoteSave();
+      
     });
 
 const deleteNote = (id) =>
@@ -219,4 +217,4 @@ if (window.location.pathname === "/notes") {
   noteText.addEventListener("keyup", handleRenderSaveBtn);
 }
 
-getAndRenderNotes;
+getAndRenderNotes();
