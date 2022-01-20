@@ -26,13 +26,12 @@ const hide = (elem) => {
 let activeNote = {};
 
 const getNotes = (noteText = {}) => {
-  let savedNotes = "/api/notes";
+  let savedNotes = "/api/notes?";
 
   Object.entries(noteText).forEach(([key, value]) => {
     savedNotes += `${key}=${value}&`;
   });
 
-  console.log("hi", savedNotes);
   
   fetch(savedNotes, {
     method: "GET",
@@ -40,19 +39,22 @@ const getNotes = (noteText = {}) => {
       "Content-Type": "application/json",
     },
   })
-    .then((res) => res.json())
-    .then((data) => console.log(data))
-    // .then((response) => {
-    //   if (!response.ok) {
-    //     return alert("Error: Could not retrieve notes");
-    //   }
-    //   return response.json();
-    // })
-    // .then(
-    //   noteslist => {return noteslist}
+    // .then((res) => res.json())
+    // .then((data) => console.log("test3", data))
+    .then((response) => {
+      if (!response.ok) {
+        return alert("Error: Could not retrieve notes");
+      }
+      return response.json();
+    })
+    .then((noteslist) => {
+      // console.log("testest", noteslist)
+      renderNoteList(noteslist)
+    }
       
-    //   // noteslist => (console.log("noteslist", noteslist))
-    // ); console.log("tes2", noteslist)
+    ); 
+
+    
 };
 
 const saveNote = (note) =>
@@ -151,8 +153,8 @@ const handleRenderSaveBtn = () => {
 
 // Render the list of note titles
 const renderNoteList = async (notes) => {
-  console.log("notelist", notes)
-  let jsonNotes = await notes.json();
+  console.log("notelistRENDER", notes)
+  let jsonNotes = await notes
   if (window.location.pathname === "/notes") {
     noteList.forEach((el) => (el.innerHTML = ""));
   }
@@ -202,11 +204,11 @@ const renderNoteList = async (notes) => {
   if (window.location.pathname === "/notes") {
     noteListItems.forEach((note) => noteList[0].append(note));
   }
+  
 };
-console.log("test", getNotes())
+console.log("test", getNotes());
 
-// Gets notes from the db and renders them to the sidebar
-const getAndRenderNotes = () => getNotes().then(noteslist => renderNoteList);
+
 
 if (window.location.pathname === "/notes") {
   saveNoteBtn.addEventListener("click", handleNoteSave);
@@ -215,4 +217,4 @@ if (window.location.pathname === "/notes") {
   noteText.addEventListener("keyup", handleRenderSaveBtn);
 }
 
-getAndRenderNotes();
+getNotes();
