@@ -30,6 +30,8 @@ function createNote(body, notesArray) {
   return note;
 }
 
+////////end of functions//////////
+
 
 ///// START ofthe GET and POST/////
 ///////
@@ -61,7 +63,18 @@ app.post("/api/notes", (req, res) => {
 const note = createNote(req.body, notes);
 
 res.json(note);
- 
+
+});
+
+app.delete("/api/notes/:id", (req, res) => {
+    const delResult = findById(req.params.id, notes);
+        if(delResult!==-1){
+            notes.splice(delResult,1);
+
+            res.status(204).send(notes[delResult]);
+        } else{
+            res.status(404).send();
+        }
 });
 
 app.get("*", (req, res) => {
