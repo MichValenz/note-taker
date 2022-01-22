@@ -10,9 +10,9 @@ app.use(express.urlencoded({ extended: true }));
 // parse incoming JSON data
 app.use(express.json());
 app.use(express.static("public"));
-/////
 
-///functions///
+
+///functions//////////
 function findById(id, notesArray) {
   const result = notesArray.filter((note) => note.id === id)[0];
   return result;
@@ -33,7 +33,7 @@ function createNote(body, notesArray) {
 ////////end of functions//////////
 
 
-///// START ofthe GET and POST/////
+///// START ofthe GET, DELETE and POST/////
 ///////
 app.get("/api/notes", (req, res) => {
   res.json(notes);
