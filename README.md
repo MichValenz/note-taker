@@ -6,6 +6,9 @@
 
   ## Description 
   The Note Taker website allows users to document and track important thoughts. From to-do lists to big ideas, Note Taker is an easy way to document and track your notes. 
+
+![screenshot of Note Taker website](images/screenshot.jpeg)
+
   ## Table of Contents
 
   * [Installation](#Installation)
@@ -37,7 +40,7 @@
   ## Questions
   Need to reach me?
   * Email: michvalenz27@gmail.com
-  * [GitHub](https://github.com/MichValenz/Note Taker)
+  * [GitHub](https://github.com/MichValenz)
 
 
        
